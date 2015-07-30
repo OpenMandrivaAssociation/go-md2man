@@ -1,5 +1,7 @@
+%define debug_package %nil
+
 %define import_path github.com/cpuguy83/go-md2man
-%define gopath %{_libdir}/golang
+%define gopath %{_libdir}/go
 %define gosrc %{gopath}/src/%{import_path}
 
 Summary:	Transform md into man pages
@@ -15,8 +17,8 @@ Provides:       golang(%{import_path}/mangen)
 
 %package devel
 BuildRequires:  golang >= 1.3.3
-BuildRequires:  golang-blackfriday-devel
-BuildRequires:  golang-net-devel
+#BuildRequires:  golang-blackfriday-devel
+#BuildRequires:  golang-net-devel
 Requires:       golang >= 1.3.3
 Summary:        Transform md into man pages devel part
 
@@ -44,8 +46,9 @@ for d in . mangen; do
     cp -av $d/*.go %{buildroot}/%{gosrc}/$d
 done
 rm -f %{buildroot}%{gosrc}/{README.md}
+pwd
 install -d -m 755 %{buildroot}/%{_bindir}
-install -m 755 %{name}-%{version} %{buildroot}/%{_bindir}/%{name}
+install -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
 
 %files
 %doc README.md
