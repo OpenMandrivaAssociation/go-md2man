@@ -15,6 +15,7 @@ Source0:        https://%{import_path}/archive/v%{version}.tar.gz
 Provides:       golang(%{import_path}) = %{version}-%{release}
 Provides:       golang(%{import_path}/mangen)
 BuildRequires:	golang-blackfriday-devel
+BuildRequires:	golang-net-devel
 
 %package devel
 BuildRequires:  golang >= 1.3.3
