@@ -7,7 +7,7 @@
 Summary:	Transform md into man pages
 Name:		go-md2man
 Version:	1.0.2
-Release:	1
+Release:	2
 License:	Specific
 Group:		Development/Other
 Url:		https://%{import_path}
