@@ -34,6 +34,7 @@ Transform md into man pages devel part
 %setup -q  -n %{name}-%{version}
 
 %build
+go env
 mkdir -p ./_build/src/github.com/cpuguy83/
 ln -s $(pwd) ./_build/src/%{import_path}
 export GOPATH=$(pwd)/_build:%{gopath}
