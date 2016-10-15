@@ -6,8 +6,8 @@
 
 Summary:	Transform md into man pages
 Name:		go-md2man
-Version:	1.0.2
-Release:	4
+Version:	1.0.6
+Release:	1
 License:	Specific
 Group:		Development/Other
 Url:		https://%{import_path}
@@ -17,18 +17,8 @@ Provides:       golang(%{import_path}/mangen)
 BuildRequires:	golang-blackfriday-devel
 BuildRequires:	golang-net-devel
 
-%package devel
-BuildRequires:  golang >= 1.3.3
-#BuildRequires:  golang-blackfriday-devel
-#BuildRequires:  golang-net-devel
-Requires:       golang >= 1.3.3
-Summary:        Transform md into man pages devel part
-
 %description
 Transform md into man pages
-
-%description devel
-Transform md into man pages devel part
 
 %prep
 %setup -q  -n %{name}-%{version}
@@ -44,24 +34,15 @@ popd
 
 %install
 mkdir -p %{buildroot}%{gosrc}
-for d in . mangen; do
-    install -d -p %{buildroot}/%{gosrc}/$d
-    cp -av $d/*.go %{buildroot}/%{gosrc}/$d
-done
 rm -f %{buildroot}%{gosrc}/{README.md}
-pwd
 install -d -m 755 %{buildroot}/%{_bindir}
 install -m 755 %{name} %{buildroot}/%{_bindir}/%{name}
+# generate man page
+install -d -p %{buildroot}%{_mandir}/man1
+./go-md2man -in=go-md2man.1.md -out=go-md2man.1
+install -p -m 644 go-md2man.1 %{buildroot}%{_mandir}/man1
 
 %files
 %doc README.md
 %{_bindir}/%{name}
-
-%files devel
-%doc README.md
-%dir %attr(755,root,root) %{gosrc}
-%dir %attr(755,root,root) %{gosrc}/mangen
-%{gosrc}/*.go
-%{gosrc}/*/*.go
-
-
+%{_mandir}/man1/%{name}.*
